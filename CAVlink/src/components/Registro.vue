@@ -31,11 +31,13 @@ export default {
   methods: {
     async onSubmit() {
       if (!this.nombre || !this.correo || !this.contraseña) return alert('Complete todos los campos')
-      const emailRe = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
+      const emailRe = /^[^\@\s]+@[^\@\s]+\.[^\@\s]+$/
       if (!emailRe.test(this.correo)) return alert('Correo inválido')
       try {
         const user = { nombre: this.nombre, correo: this.correo, contraseña: this.contraseña, rol: 'USUARIO' }
-        const res = await axios.post('http://localhost:8080/api/usuarios/register', user)
+        const res = await axios.post('http://localhost:8080/api/usuarios/register', user, {
+          headers: { 'Content-Type': 'application/json' }
+        })
         alert('Registro exitoso')
         this.$router.push({ name: 'Login' })
       } catch (err) {
