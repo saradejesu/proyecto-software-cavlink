@@ -35,13 +35,23 @@ export default {
       if (!emailRe.test(this.correo)) return alert('Correo inválido')
       try {
         const user = { nombre: this.nombre, correo: this.correo, contraseña: this.contraseña, rol: 'USUARIO' }
+        console.log('Enviando datos:', user)
         const res = await axios.post('http://localhost:8080/api/usuarios/register', user, {
           headers: { 'Content-Type': 'application/json' }
         })
+        console.log('Respuesta:', res.data)
         alert('Registro exitoso')
         this.$router.push({ name: 'Login' })
       } catch (err) {
-        alert(err.response?.data || 'Error en registro')
+        console.error('Error completo:', err)
+        console.error('Error response:', err.response)
+        let errorMsg = 'Error en registro'
+        if (err.response?.data) {
+          errorMsg = typeof err.response.data === 'string' ? err.response.data : JSON.stringify(err.response.data)
+        } else if (err.message) {
+          errorMsg = err.message
+        }
+        alert(errorMsg)
       }
     }
   }
