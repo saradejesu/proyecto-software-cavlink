@@ -35,7 +35,7 @@ export default {
       if (!emailRe.test(this.correo)) return alert('Correo inválido')
       try {
         const user = { nombre: this.nombre, correo: this.correo, contraseña: this.contraseña, rol: 'USUARIO' }
-        const res = await axios.post('/api/usuarios/register', user)
+        const res = await axios.post('http://localhost:8080/api/usuarios/register', user)
         alert('Registro exitoso')
         this.$router.push({ name: 'Login' })
       } catch (err) {
