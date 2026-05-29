@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
  */
 @RestController
 @RequestMapping("/api/usuarios")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"})
 public class UsuarioController {
 
     @Autowired
