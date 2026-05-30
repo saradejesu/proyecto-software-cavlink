@@ -44,7 +44,9 @@ export default {
     if (!u) return this.$router.push({ name: 'Login' })
     this.user = JSON.parse(u)
     const res = await axios.get('/api/productos/')
-    this.productos = res.data.map(p => ({ ...p, seleccion: 0 }))
+    this.productos = res.data
+      .map(p => ({ ...p, cantidad: Math.max(0, p.cantidad), seleccion: 0 }))
+      .filter(p => p.cantidad > 0)
   },
   methods: {
     async registrar() {
@@ -55,8 +57,10 @@ export default {
       try {
         await axios.post('/api/pedidos/registrar', pedido)
         alert('Pedido registrado')
-        this.$router.push({ name: 'ConsultarCarrito' })
-      } catch (err) { alert(err.response?.data || 'Error registrando pedido') }
+        this.$router.push('/carrito')
+      } catch (err) {
+        alert(err.response?.data || err.message || 'Error registrando pedido')
+      }
     }
   }
 }

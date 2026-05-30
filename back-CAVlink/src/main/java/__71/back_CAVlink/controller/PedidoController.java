@@ -28,9 +28,26 @@ public class PedidoController {
     public ResponseEntity<?> registrar(@RequestBody Pedido pedido) throws IOException {
         if (!isValidPedido(pedido)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Pedido inválido");
         JsonStorage.RootData data = storage.readAll();
+        // Validar que todos los productos existen y tienen stock suficiente antes de persistir
+        for (Producto prod : pedido.getProductos()) {
+            Optional<Producto> maybeProducto = data.productos.stream().filter(p -> p.getId().equals(prod.getId())).findFirst();
+            if (maybeProducto.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Producto no encontrado: " + prod.getNombre());
+            }
+            Producto productoExistente = maybeProducto.get();
+            if (prod.getCantidad() <= 0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cantidad inválida para el producto: " + productoExistente.getNombre());
+            }
+            if (productoExistente.getCantidad() <= 0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No hay stock disponible para " + productoExistente.getNombre());
+            }
+            if (productoExistente.getCantidad() < prod.getCantidad()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No hay stock suficiente para " + productoExistente.getNombre());
+            }
+        }
         if (pedido.getIdPedido() == null) pedido.setIdPedido(System.currentTimeMillis());
         data.pedidos.add(pedido);
-        // disminuir stock de productos
+        // disminuir stock de productos después de validar
         for (Producto prod : pedido.getProductos()) {
             data.productos.stream().filter(p -> p.getId().equals(prod.getId())).findFirst().ifPresent(p -> p.setCantidad(p.getCantidad() - prod.getCantidad()));
         }

@@ -15,7 +15,7 @@ const routes = [
   { path: '/perfil', name: 'Perfil', component: Perfil, meta: { requiresAuth: true } },
   { path: '/crear-producto', name: 'CrearProducto', component: CrearProducto, meta: { requiresAuth: true, requiresAdmin: true } },
   { path: '/productos', name: 'Productos', component: ConsultarProducto },
-  { path: '/carrito', name: 'Carrito', component: ConsultarCarrito, meta: { requiresAuth: true, requiresUser: true } },
+  { path: '/carrito', name: 'ConsultarCarrito', component: ConsultarCarrito, meta: { requiresAuth: true, requiresUser: true } },
   { path: '/registrar-pedido', name: 'RegistrarPedido', component: RegistrarPedido, meta: { requiresAuth: true, requiresUser: true } },
 ]
 

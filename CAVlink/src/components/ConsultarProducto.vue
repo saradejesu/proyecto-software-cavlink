@@ -11,7 +11,7 @@
           <h3>{{ p.nombre }}</h3>
           <p class="category">{{ p.categoria }}</p>
           <div class="price">${{ p.precio }}</div>
-          <p class="stock">Stock disponible: {{ p.cantidad }}</p>
+          <p class="stock">Stock disponible: {{ Math.max(0, p.cantidad) }}</p>
         </div>
         <div class="card__footer" v-if="user && user.rol === 'USUARIO'">
           <button class="btn" @click="addToCart(p)" :disabled="p.cantidad <= 0">
