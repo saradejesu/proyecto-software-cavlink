@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * File: Pedido.java
- * Model: Representa un pedido / carrito
- * Funcionalidad: Guarda ID pedido, ID usuario, lista de productos, total y estado
+ * Modelo de pedido.
+ * Mantiene los productos seleccionados por un usuario, el total y el estado del pedido.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Pedido {

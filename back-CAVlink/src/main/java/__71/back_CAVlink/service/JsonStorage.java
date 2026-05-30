@@ -13,9 +13,8 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * File: JsonStorage.java
- * Servicio: Maneja lectura y escritura eficiente del archivo cavlink.json
- * Funcionalidad: Provee operaciones seguras con lock para usuarios, productos y pedidos
+ * Servicio de almacenamiento JSON.
+ * Maneja la lectura y escritura del archivo de datos cavlink.json con bloqueo de concurrencia.
  */
 @Service
 public class JsonStorage {

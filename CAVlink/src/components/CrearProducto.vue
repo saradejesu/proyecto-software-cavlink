@@ -16,11 +16,11 @@
         </label>
         <label class="field">
           <span>Precio</span>
-          <input type="number" v-model.number="form.precio" step="0.01" required />
+          <input type="number" min="0" v-model.number="form.precio" step="0.01" required />
         </label>
         <label class="field">
           <span>Cantidad en Stock</span>
-          <input type="number" v-model.number="form.cantidad" required />
+          <input type="number" min="0" v-model.number="form.cantidad" required />
         </label>
         <button type="submit" class="btn">Guardar Producto</button>
       </form>
@@ -39,12 +39,17 @@ export default {
   },
   methods: {
     async onSubmit() {
+      if (!this.form.nombre.trim() || !this.form.categoria.trim()) {
+        return alert('Complete el nombre y la categoría del producto')
+      }
+      if (this.form.precio < 0) return alert('El precio no puede ser negativo')
+      if (this.form.cantidad < 0) return alert('La cantidad en stock no puede ser negativa')
       try {
-        await axios.post('/api/productos/crear', this.form)
+        await axios.post('/api/productos/crear', { ...this.form, nombre: this.form.nombre.trim(), categoria: this.form.categoria.trim() })
         alert('Producto creado exitosamente')
         this.$router.push({ name: 'Catalogo' })
       } catch (err) {
-        alert('Error al crear producto')
+        alert(err.response?.data || 'Error al crear producto')
       }
     }
   }

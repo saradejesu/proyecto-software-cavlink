@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * File: Usuario.java
- * Model: Representa un usuario del sistema
- * Funcionalidad: Modelo de datos con campos básicos (ID, correo, nombre, password, rol)
+ * Modelo de usuario.
+ * Contiene datos básicos del usuario: id, correo, nombre, contraseña y rol.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Usuario {

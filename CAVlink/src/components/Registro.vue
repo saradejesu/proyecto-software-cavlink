@@ -41,8 +41,12 @@ export default {
       if (!this.nombre || !this.correo || !this.contraseña) return alert('Complete todos los campos')
       const emailRe = /^[^\@\s]+@[^\@\s]+\.[^\@\s]+$/
       if (!emailRe.test(this.correo)) return alert('Correo inválido')
+      const nameRe = /^[A-Za-zÀ-ÿ0-9 ]+$/
+      if (!nameRe.test(this.nombre.trim())) return alert('Nombre inválido. Solo letras, números y espacios.')
+      if (/^[0-9 ]+$/.test(this.nombre.trim())) return alert('El nombre no puede ser solo números')
+      if (this.contraseña.length < 4) return alert('La contraseña debe tener al menos 4 caracteres')
       try {
-        const user = { nombre: this.nombre, correo: this.correo, contraseña: this.contraseña, rol: 'USUARIO' }
+        const user = { nombre: this.nombre.trim(), correo: this.correo.trim(), contraseña: this.contraseña, rol: 'USUARIO' }
         console.log('Enviando datos:', user)
         const res = await axios.post('/api/usuarios/register', user, {
           headers: { 'Content-Type': 'application/json' }

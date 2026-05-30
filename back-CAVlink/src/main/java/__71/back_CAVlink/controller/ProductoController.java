@@ -12,9 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * File: ProductoController.java
- * Controlador: Gestiona creación y consulta de productos
- * Funcionalidad: Endpoints para CRUD mínimo en productos con validación backend
+ * Controlador de productos.
+ * Proporciona endpoints para crear y listar productos con validación de datos.
  */
 @RestController
 @RequestMapping("/api/productos")

@@ -13,9 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * File: PedidoController.java
- * Controlador: Gestiona registro y consulta de pedidos/carrito
- * Funcionalidad: Registrar pedido y consultar pedidos por usuario
+ * Controlador de pedidos.
+ * Maneja el registro de pedidos y la consulta de pedidos por usuario.
  */
 @RestController
 @RequestMapping("/api/pedidos")

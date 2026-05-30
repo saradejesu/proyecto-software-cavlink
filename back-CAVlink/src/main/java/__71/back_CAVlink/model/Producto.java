@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * File: Producto.java
- * Model: Representa un producto en inventario
- * Funcionalidad: Campos ID, nombre, categoria, descripcion, precio, cantidad
+ * Modelo de producto.
+ * Representa un artículo disponible en el catálogo con precio y stock.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Producto {
