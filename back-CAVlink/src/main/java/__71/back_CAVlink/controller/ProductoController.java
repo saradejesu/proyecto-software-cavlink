@@ -33,7 +33,7 @@ public class ProductoController {
         return ResponseEntity.ok(p);
     }
 
-    @GetMapping("/")
+    @GetMapping({"", "/"})
     public ResponseEntity<List<Producto>> listar() throws IOException {
         JsonStorage.RootData data = storage.readAll();
         return ResponseEntity.ok(data.productos);
@@ -43,7 +43,9 @@ public class ProductoController {
     public ResponseEntity<?> getById(@PathVariable Long id) throws IOException {
         JsonStorage.RootData data = storage.readAll();
         Optional<Producto> found = data.productos.stream().filter(x -> id.equals(x.getId())).findFirst();
-        return found.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado"));
+        return found
+                .map(p -> ResponseEntity.ok((Object) p))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado"));
     }
 
     private boolean isValidProducto(Producto p) {

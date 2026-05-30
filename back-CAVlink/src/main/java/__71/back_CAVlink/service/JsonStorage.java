@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -27,7 +27,7 @@ public class JsonStorage {
     @PostConstruct
     public void init() throws IOException {
         // Localización del archivo en resources/data/cavlink.json
-        dbFile = Paths.get("src/main/resources/data/cavlink.json").toFile();
+        dbFile = Paths.get("src", "main", "resources", "data", "cavlink.json").toFile();
         if (!dbFile.exists()) {
             // Crear estructura inicial si no existe
             rwLock.writeLock().lock();

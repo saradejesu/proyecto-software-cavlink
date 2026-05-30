@@ -1,5 +1,1 @@
-{
-  "usuarios": [],
-  "productos": [],
-  "pedidos": []
-}
+{"usuarios":[{"id":1780095164921,"correo":"prueba@gmail.com","nombre":"prueba","contraseña":"1234","rol":"USUARIO"},{"id":1780097000000,"correo":"admin@cavlink.com","nombre":"Administrador","contraseña":"admin123","rol":"ADMIN"}],"productos":[{"id":1780096533006,"nombre":"Computadora","categoria":"tecnología","descripcion":"laptop para trabajar","precio":500.0,"cantidad":3}],"pedidos":[]}

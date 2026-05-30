@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 @RestController
 @RequestMapping("/api/usuarios")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174", "http://localhost:3000"})
 public class UsuarioController {
 
     @Autowired
@@ -61,7 +61,9 @@ public class UsuarioController {
     public ResponseEntity<?> getById(@PathVariable Long id) throws IOException {
         JsonStorage.RootData data = storage.readAll();
         Optional<Usuario> found = data.usuarios.stream().filter(u -> id.equals(u.getId())).findFirst();
-        return found.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado"));
+        return found
+                .map(u -> ResponseEntity.ok((Object) u))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado"));
     }
 
     // Util: validar usuario

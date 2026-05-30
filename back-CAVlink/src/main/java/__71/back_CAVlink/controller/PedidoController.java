@@ -49,7 +49,9 @@ public class PedidoController {
     public ResponseEntity<?> getById(@PathVariable Long idPedido) throws IOException {
         JsonStorage.RootData data = storage.readAll();
         Optional<Pedido> found = data.pedidos.stream().filter(p -> idPedido.equals(p.getIdPedido())).findFirst();
-        return found.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pedido no encontrado"));
+        return found
+                .map(p -> ResponseEntity.ok((Object) p))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pedido no encontrado"));
     }
 
     private boolean isValidPedido(Pedido pedido) {
